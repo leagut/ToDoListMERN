@@ -1,8 +1,11 @@
 const express = require('express'); //requiere express para crear rutas 
 const router = express.Router();
 
-router.get('/',(req,res) =>{   // crea una ruta para que al llegar una peticion a la ruta inicial de tipo get se responda 
-    res.send('helo world');
+const Task = require('../models/task');
+
+router.get('/', async (req, res) => {
+    const tasks = await Task.find();
+    res.json(tasks);
 });
 
 module.exports = router;
