@@ -1,28 +1,26 @@
 const express = require('express');
-const morgan =require('morgan');
+const morgan = require('morgan');
 const path = require('path');
-
-const { mongoose } =require('./database');
 
 const app = express();
 
-//setting
-app.set('port',process.env.PORT || 3000); //Sirve para que tome el puerto del servidor de la nube ,sino le dejamos por defecto el 3000
+// Db connection
+const { mongoose } = require('./database');
 
-//middlewares (funciones que se ejecutan antes de que lleguen  las rutas)
+// Settings 
+app.set('port', process.env.PORT || 3000);
+
+// Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 
-//Routes (url de nuestro server)
-app.use('/api/tasks',require('./routes/task.routes'));
+// Routes
+app.use('/api/tasks', require('./routes/task.routes'));
 
+// Static Files
+app.use(express.static(path.join(__dirname, 'public')));;
 
-//static files  (archivos estaticos html js y css que iran en la carpeta public)
-app.use(express.static(path.join(__dirname, 'public'))); 
-
-
-//starting server
-app.listen(app.get('port'), ()=>{
-    console.log(`server on ${app.get('port')}`);
+// Starting the server
+app.listen(app.get('port'), () => {
+  console.log(`Server on port ${app.get('port')}`);
 });
-
