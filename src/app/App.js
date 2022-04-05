@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+<link rel="stylesheet" href="./app.css" />
 class App extends Component {
 
     constructor() {
